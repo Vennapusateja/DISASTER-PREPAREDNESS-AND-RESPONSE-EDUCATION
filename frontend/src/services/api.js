@@ -1,4 +1,4 @@
-const BASE_URL = ""; // Assuming relative paths for Vite proxy or same-origin
+const BASE_URL = import.meta.env.VITE_API_URL || "https://disaster-preparedness-and-response-0jh5.onrender.com";
 
 export function getToken() {
   return localStorage.getItem("token");
