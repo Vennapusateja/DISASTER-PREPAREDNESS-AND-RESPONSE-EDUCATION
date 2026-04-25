@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-50 antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99,102,241,0.12), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.07), transparent);
+  }
+}
+
+/* ── Cards ─────────────────────────────────────── */
+.os-card {
+  @apply bg-slate-900/60 border border-white/5 rounded-3xl p-6 backdrop-blur-md transition-all duration-300;
+  position: relative;
+  overflow: hidden;
+}
+
+.os-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.os-card:hover {
+  @apply border-indigo-500/30 shadow-2xl shadow-indigo-500/10;
+  transform: translateY(-2px);
+}
+
+/* ── Typography ─────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/10 shadow-2xl;
+}
+
+/* ── Animations ─────────────────────────────────── */
+.animate-fade-in {
+  animation: fadeIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes flameFlicker {
+  0%,100% { transform: scale(1)    translateY(0px);  }
+  33%      { transform: scale(1.07) translateY(-4px); }
+  66%      { transform: scale(0.96) translateY(-1px); }
+}
+.animate-flame-flicker { animation: flameFlicker 0.8s infinite ease-in-out; }
+
+@keyframes shake-dynamic {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(var(--shake-dist), calc(var(--shake-dist) * -0.5)); }
+  50%  { transform: translate(calc(var(--shake-dist) * -1), var(--shake-dist)); }
+  75%  { transform: translate(calc(var(--shake-dist) * 0.5), calc(var(--shake-dist) * -1)); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes waterWave {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(-4%); }
+}
+.animate-water-wave { animation: waterWave 3s ease-in-out infinite; }
+
+@keyframes hudPulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+.animate-hud-pulse { animation: hudPulse 2s ease-in-out infinite; }
+
+@keyframes floatUp {
+  0%   { transform: translateY(0)  scale(1);    opacity: 0.7; }
+  100% { transform: translateY(-60px) scale(0.5); opacity: 0;   }
+}
+
+@keyframes ambientGlow {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.05); }
+}
+.animate-ambient { animation: ambientGlow 6s ease-in-out infinite; }
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.6); }
+
+/* ── Buttons ────────────────────────────────────── */
+button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+button:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ── Sidebar scanline accent ────────────────────── */
+aside::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+/* ── Input focus ring ───────────────────────────── */
+input:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.5);
+}
+
+/* ── Range slider ───────────────────────────────── */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(99,102,241,0.6);
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.08);
+}
+
+
+/* -- Slide-down animation for AlertBanner -- */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* -- Severity badge chips -- */
+.badge-critical { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+.badge-high     { background: rgba(249,115,22,0.12); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
+.badge-medium   { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+.badge-low      { background: rgba(59,130,246,0.12);  color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
